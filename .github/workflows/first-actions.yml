@@ -8,19 +8,15 @@ jobs:
 
     strategy:
       matrix:
-        python-version: [3.8, 3.9]
+        nginx: [latest]
 
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
-
+    - name: install nginx
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install pytest
+        nginx -m pip install --upgrade pip
+        pip install nginx
 
     - name: Run tests
       run: |
