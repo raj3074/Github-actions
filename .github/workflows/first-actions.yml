@@ -4,19 +4,23 @@ on: [push]
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        nginx: [latest]
+        python-version: [latest]
 
     steps:
     - uses: actions/checkout@v3
-    - name: install nginx
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+
     - name: Install dependencies
       run: |
-        nginx -m pip install --upgrade pip
-        pip install nginx
+        python -m pip install --upgrade pip
+        pip install pytest
 
     - name: Run tests
       run: |
